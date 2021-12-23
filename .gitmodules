@@ -1,0 +1,4 @@
+[submodule "cc-material-helpers"]
+	path = cc-material-helpers
+	url = https://github.com/alexbrickwedde/cc-material-helpers
+	branch = main
