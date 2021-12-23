@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" href="cc-material-helpers/material-components-web.css"></link>
+<link rel="stylesheet" href="cc-material-helpers/materialicons.css">
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="icon" type="image/png" href="/favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" sizes="64x64" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon.png">
+<style>
+:root {
+  --mdc-theme-primary: rgb(56, 62, 66);
+  --mdc-theme-secondary: #A4B9CE;
+}
+.mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
+  color: #2343CC;
+}
+.mdc-drawer .mdc-list-item--activated {
+  color: rgba(35, 67, 204, 0.87);
+}
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: rgba(35, 67, 204, 0.87);
+}
+.mdc-select:not(.mdc-select--disabled).mdc-select--focused .mdc-floating-label {
+  color: rgba(35, 67, 204, 0.87);
+}
+.mdc-chip-set--choice .mdc-chip.mdc-chip--selected .mdc-chip__icon--leading {
+  color: rgba(35, 67, 204, 0.54);
+}
+.mdc-data-table__row--selected {
+  background-color: rgba(35, 67, 204, 0.04);
+}
+body {
+  color: rgb(56, 62, 66);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+</style>
+<script type="text/javascript" src="cc-material-helpers/util.js"></script>
+<script type="text/javascript" src="cc-material-helpers/material-components-web.js"></script>
+<script type="text/javascript" src="cc-material-helpers/safari-polyfill.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcDrawer.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcTopAppBar.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcTextField.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcTextArea.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcCheckbox.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcListItem.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcButton.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcSelect.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcDialog.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcList.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcChips.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcAceEditor.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcTinyMCEEditor.js"></script>
+<script type="text/javascript" src="cc-material-helpers/tinymce.min.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcFloatingActionButton.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcPrompt.js"></script>
+</head>
+<body>
+
+<div>
+  <cc-mdc-select id="sel"></cc-mdc-select>
+</div>
+<div>
+  <cc-mdc-text-field id="num" type="number" label="Eine Zahl" min="1" max="4" step="0.1"></cc-mdc-select>
+</div>
+<div>
+  <cc-mdc-text-field id="date" type="date" label="Ein Datum"></cc-mdc-select>
+</div>
+
+<script type="text/javascript">
+window.addEventListener("load", () => {
+  var sel = document.querySelector("#sel");
+  var num = document.querySelector("#num");
+  var date = document.querySelector("#date");
+
+  sel.addItem(`Test<b>Entry</b>&auml; 1`, 1);
+  sel.addItem(`Test<b>Entry</b> 2`, "2");
+  sel.addItem(`Test<b>Entry</b> 3`, [3]);
+  sel.addItem(`Test<b>Entry</b> 4`, null);
+  sel.value = null;
+  sel.addEventListener("change", (e) => {
+    console.error(sel.value);
+    new CcMdcDialog().setType("okcancel").setHtml(`You selected ${sel.value} as ${typeof sel.value}`).open()
+    .then((action) => {
+      console.log(action)
+    })
+    .catch((e) => {
+      console.log("error", e)
+    })
+  });
+
+  num.value = 2;
+  num.addEventListener("change", (e) => {
+    console.error(num.value);
+    date.disabled = (num.value % 2) ? true : false;
+  });
+
+  date.value = "2020-01-01";
+  date.addEventListener("change", (e) => {
+    console.error(date.value);
+  });
+});
+</script>
+</body>
+</html>
