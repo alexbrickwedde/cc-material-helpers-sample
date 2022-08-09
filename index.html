@@ -56,6 +56,7 @@ body {
 <script type="text/javascript" src="cc-material-helpers/CcMdcCheckbox.js"></script>
 <script type="text/javascript" src="cc-material-helpers/CcMdcListItem.js"></script>
 <script type="text/javascript" src="cc-material-helpers/CcMdcButton.js"></script>
+<script type="text/javascript" src="cc-material-helpers/CcMdcTabbar.js"></script>
 <script type="text/javascript" src="cc-material-helpers/CcMdcSelect.js"></script>
 <script type="text/javascript" src="cc-material-helpers/CcMdcDialog.js"></script>
 <script type="text/javascript" src="cc-material-helpers/CcMdcList.js"></script>
@@ -69,13 +70,16 @@ body {
 <body>
 
 <div>
+  <cc-mdc-tabbar id="tabbar"></cc-mdc-tabbar>
+</div>
+<div>
   <cc-mdc-select id="sel" label="Select an item"></cc-mdc-select>
 </div>
 <div>
-  <cc-mdc-text-field id="num" type="number" label="Eine Zahl" min="1" max="4" step="0.1"></cc-mdc-select>
+  <cc-mdc-text-field id="num" type="number" label="Eine Zahl" min="1" max="4" step="0.1"></cc-mdc-text-field>
 </div>
 <div>
-  <cc-mdc-text-field id="date" type="date" label="Ein Datum"></cc-mdc-select>
+  <cc-mdc-text-field id="date" type="date" label="Ein Datum"></cc-mdc-text-field>
 </div>
 
 <script type="text/javascript">
@@ -83,6 +87,25 @@ window.addEventListener("load", () => {
   var sel = document.querySelector("#sel");
   var num = document.querySelector("#num");
   var date = document.querySelector("#date");
+  var tabbar = document.querySelector("#tabbar");
+  var menutab = tabbar.addTab("menu", "Müll");
+  var closetab = tabbar.addTab("close", "Hinzu");
+
+  menutab.addEventListener("activated", (e) => {
+    console.error("menutab active");
+  })
+
+  closetab.addEventListener("activated", (e) => {
+    console.error("closetab active");
+  })
+
+  tabbar.addEventListener("change", (e) => {
+    console.error("change", e.detail);
+  })
+  
+  setTimeout(() => { tabbar.activateTab(0); }, 1000);
+  setTimeout(() => { tabbar.activateTab(1); }, 3000);
+  setTimeout(() => { tabbar.activateTab(0); }, 5000);
 
   sel.addItem(`Test<b>Entry</b>&auml; 1`, 1);
   sel.addItem(`Test<b>Entry</b> 2`, "2");
